@@ -432,3 +432,99 @@ html, body { height: 100%; background: var(--bg-0); color: var(--text-primary); 
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ── Module C: Race Strategy ─────────────────────────────────────────────────── */
+
+.strategy-layout {
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.strategy-gantt-col { width: 100%; }
+
+.strategy-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 12px;
+}
+
+.strategy-position-col { min-width: 0; }
+.strategy-pit-col { min-width: 0; }
+
+/* Gantt card */
+.gantt-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.gantt-legend {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  margin-top: 10px; padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.gantt-legend-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; color: var(--text-muted);
+}
+
+.gantt-legend-dot {
+  width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+}
+
+.gantt-pit-line {
+  display: inline-block; width: 2px; height: 12px;
+  background: rgba(255,255,255,0.5); flex-shrink: 0;
+}
+
+/* Pit stop table */
+.pit-table-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  height: 100%;
+}
+
+.pit-table-scroll {
+  overflow-y: auto; max-height: 260px; margin-top: 8px;
+}
+
+.pit-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 12px;
+}
+
+.pit-table th {
+  text-align: left; padding: 4px 8px;
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: var(--bg-1);
+}
+
+.pit-table td {
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.pit-row { transition: background 0.1s; cursor: default; }
+.pit-row:hover { background: rgba(255,255,255,0.03); }
+.pit-row.highlighted { background: rgba(255,255,255,0.05); }
+.pit-row.dimmed { opacity: 0.25; }
+.pit-row:last-child td { border-bottom: none; }
+
+.fast-stop { color: #22c55e; font-weight: 700; }
+.slow-stop  { color: #ff6b6b; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .strategy-bottom-row {
+    grid-template-columns: 1fr;
+  }
+}

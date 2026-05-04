@@ -1,5 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+// ── Module A: Qualifying Ghost ────────────────────────────────────────────────
+
 export interface TrackPoint {
   x: number;
   y: number;
@@ -89,6 +91,53 @@ export interface TyreDegradationResponse {
   cached: boolean;
 }
 
+// ── Module C: Race Strategy ───────────────────────────────────────────────────
+
+export interface StrategyStint {
+  stint_number: number;
+  compound: string;
+  compound_color: string;
+  start_lap: number;
+  end_lap: number;
+  lap_count: number;
+  tyre_life_at_start: number | null;
+}
+
+export interface PitStop {
+  stop_number: number;
+  lap: number;
+  pit_duration_s: number | null;
+  from_compound: string;
+  to_compound: string;
+}
+
+export interface PositionPoint {
+  lap: number;
+  position: number;
+}
+
+export interface StrategyDriver {
+  code: string;
+  name: string;
+  team: string;
+  team_color: string;
+  finish_position: number;
+  stints: StrategyStint[];
+  pit_stops: PitStop[];
+  positions: PositionPoint[];
+}
+
+export interface RaceStrategyResponse {
+  session_name: string;
+  year: number;
+  gp: string;
+  total_laps: number;
+  drivers: StrategyDriver[];
+  cached: boolean;
+}
+
+// ── API client ────────────────────────────────────────────────────────────────
+
 async function apiFetch<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`);
   if (!res.ok) {
@@ -112,5 +161,10 @@ export const api = {
   tyreDegradation: (year: number, gp: string) =>
     apiFetch<TyreDegradationResponse>(
       `/api/tyres/degradation?year=${year}&gp=${encodeURIComponent(gp)}`
+    ),
+
+  raceStrategy: (year: number, gp: string) =>
+    apiFetch<RaceStrategyResponse>(
+      `/api/strategy/race?year=${year}&gp=${encodeURIComponent(gp)}`
     ),
 };

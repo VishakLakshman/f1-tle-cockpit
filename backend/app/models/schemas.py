@@ -89,3 +89,47 @@ class TyreDegradationResponse(BaseModel):
     gp: str
     drivers: List[TyreDriver]
     cached: bool = False
+
+# ── Module C: Race Strategy ───────────────────────────────────────────────────
+
+class StrategyStint(BaseModel):
+    stint_number: int
+    compound: str
+    compound_color: str
+    start_lap: int
+    end_lap: int
+    lap_count: int
+    tyre_life_at_start: Optional[int]
+
+
+class PitStop(BaseModel):
+    stop_number: int
+    lap: int
+    pit_duration_s: Optional[float]
+    from_compound: str
+    to_compound: str
+
+
+class PositionPoint(BaseModel):
+    lap: int
+    position: int
+
+
+class StrategyDriver(BaseModel):
+    code: str
+    name: str
+    team: str
+    team_color: str
+    finish_position: int
+    stints: List[StrategyStint]
+    pit_stops: List[PitStop]
+    positions: List[PositionPoint]
+
+
+class RaceStrategyResponse(BaseModel):
+    session_name: str
+    year: int
+    gp: str
+    total_laps: int
+    drivers: List[StrategyDriver]
+    cached: bool = False

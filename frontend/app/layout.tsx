@@ -4,7 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import GlobalHeader from "@/components/GlobalHeader";
 
 export const metadata: Metadata = {
-  title: "F1 TLE",
+  title: "Driver's Office - F1",
   description: "F1 Telemetry Dashboard",
 };
 

@@ -9,7 +9,7 @@ const GPS = ["Bahrain", "Saudi Arabia", "Australian", "Japan", "China",
   "Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
   "Brazil", "Las Vegas", "Qatar", "Abu Dhabi"];
 
-const YEARS = [2025,2024];
+const YEARS = [2025];
 
 export default function GlobalHeader() {
   const { year, gp, session, progressPct, isPlaying,
@@ -68,7 +68,7 @@ export default function GlobalHeader() {
         </select>
 
         <select value={session} onChange={(e) => setSelection({ session: e.target.value })} className="ctrl-select">
-          {["Q1", "Q2", "Q3"].map((s) => <option key={s} value={s}>{s}</option>)}
+          {["Q3"].map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
 
         <button onClick={loadSession} className="ctrl-btn">Load Session</button>

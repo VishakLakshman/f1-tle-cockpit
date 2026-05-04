@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GhostResponse, SessionInfo, TyreDegradationResponse } from "@/lib/api";
+import { GhostResponse, SessionInfo, TyreDegradationResponse, RaceStrategyResponse } from "@/lib/api";
 
 interface F1State {
   // Session selection (shared across modules)
@@ -21,6 +21,11 @@ interface F1State {
   tyreData: TyreDegradationResponse | null;
   selectedTyreDrivers: string[];
 
+  // Module C data
+  strategyData: RaceStrategyResponse | null;
+  selectedStrategyDrivers: string[];
+  highlightedDriver: string | null;
+
   // UI state
   loading: boolean;
   error: string | null;
@@ -33,6 +38,9 @@ interface F1State {
   setSessionInfo: (info: SessionInfo | null) => void;
   setTyreData: (data: TyreDegradationResponse | null) => void;
   setSelectedTyreDrivers: (drivers: string[]) => void;
+  setStrategyData: (data: RaceStrategyResponse | null) => void;
+  setSelectedStrategyDrivers: (drivers: string[]) => void;
+  setHighlightedDriver: (code: string | null) => void;
   setLoading: (v: boolean) => void;
   setError: (msg: string | null) => void;
 }
@@ -51,6 +59,9 @@ export const useF1Store = create<F1State>((set) => ({
   sessionInfo: null,
   tyreData: null,
   selectedTyreDrivers: [],
+  strategyData: null,
+  selectedStrategyDrivers: [],
+  highlightedDriver: null,
 
   loading: false,
   error: null,
@@ -62,6 +73,9 @@ export const useF1Store = create<F1State>((set) => ({
   setSessionInfo: (info) => set({ sessionInfo: info }),
   setTyreData: (data) => set({ tyreData: data }),
   setSelectedTyreDrivers: (drivers) => set({ selectedTyreDrivers: drivers }),
+  setStrategyData: (data) => set({ strategyData: data }),
+  setSelectedStrategyDrivers: (drivers) => set({ selectedStrategyDrivers: drivers }),
+  setHighlightedDriver: (code) => set({ highlightedDriver: code }),
   setLoading: (v) => set({ loading: v }),
   setError: (msg) => set({ error: msg }),
 }));

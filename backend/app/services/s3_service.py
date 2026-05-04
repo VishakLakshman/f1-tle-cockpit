@@ -55,3 +55,9 @@ def get_tyre_degradation(year: int, gp: str) -> dict:
     data = _get(key)
     data["cached"] = False
     return data
+
+def get_race_strategy(year: int, gp: str) -> dict:
+    key = f"processed/{year}/{_gp_slug(gp)}/race/race_strategy.json"
+    data = _get(key)
+    data["cached"] = False
+    return data
