@@ -9,7 +9,7 @@ const GPS = ["Bahrain", "Saudi Arabia", "Australia", "Japan", "China",
   "Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
   "Brazil", "Las Vegas", "Qatar", "Abu Dhabi"];
 
-const YEARS = [2024, 2023, 2022, 2021, 2020];
+const YEARS = [2025,2024];
 
 export default function GlobalHeader() {
   const { year, gp, session, progressPct, isPlaying,
