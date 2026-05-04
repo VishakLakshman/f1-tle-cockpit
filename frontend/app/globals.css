@@ -275,3 +275,160 @@ html, body { height: 100%; background: var(--bg-0); color: var(--text-primary); 
   .bento-side { grid-column: 1; grid-row: 2; }
   .bento-bottom { grid-row: 3; }
 }
+
+
+/* ── Module B: Tyre Degradation ─────────────────────────────────────────────── */
+
+/* Driver filter pills */
+.tyre-driver-filter {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+}
+
+.tyre-driver-pill {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  border: 1px solid; cursor: pointer;
+  transition: all 0.15s;
+  background: transparent;
+}
+.tyre-driver-pill:hover { opacity: 0.8; }
+
+/* Page layout */
+.tyre-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 12px;
+  min-height: 0;
+}
+
+.tyre-charts-col { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+.tyre-charts-stack { display: flex; flex-direction: column; gap: 10px; }
+.tyre-summary-col { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+
+/* Degradation chart card */
+.tyre-chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.tyre-chart-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
+}
+
+.tyre-team {
+  font-size: 11px; color: var(--text-muted); flex: 1;
+}
+
+.tyre-compound-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+
+.compound-pill {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 4px;
+}
+
+/* Deg slope row */
+.deg-slope-row {
+  display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap;
+}
+
+.deg-slope-item {
+  display: flex; align-items: center; gap: 5px;
+}
+
+.compound-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+
+.deg-label { font-size: 10px; color: var(--text-muted); }
+.deg-value { font-family: var(--mono); font-size: 11px; font-weight: 700; }
+
+/* Tooltip */
+.tyre-tooltip {
+  background: #111; border: 1px solid #333; border-radius: 6px;
+  padding: 8px 10px; font-size: 12px;
+  min-width: 140px;
+}
+
+.tyre-tt-row {
+  display: flex; justify-content: space-between; gap: 16px;
+  color: var(--text-secondary);
+}
+
+.tyre-tt-row span:last-child {
+  font-family: var(--mono); color: var(--text-primary); font-weight: 600;
+}
+
+.tyre-tt-invalid {
+  margin-top: 4px; font-size: 10px; color: #ff6b6b; font-style: italic;
+}
+
+/* Stint summary */
+.stint-summary-grid { display: flex; flex-direction: column; gap: 8px; }
+
+.stint-driver-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+
+.stint-driver-header {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px;
+}
+
+.stint-driver-name {
+  font-size: 11px; color: var(--text-muted);
+}
+
+.stint-list { display: flex; flex-direction: column; gap: 5px; }
+
+.stint-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+.stint-row:last-child { border-bottom: none; }
+
+.stint-compound-badge {
+  width: 26px; height: 26px; border-radius: 6px; border: 1px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 12px;
+  flex-shrink: 0;
+}
+
+.stint-details { flex: 1; min-width: 0; }
+
+.stint-meta { font-size: 10px; color: var(--text-muted); }
+
+.stint-times {
+  display: flex; gap: 8px; margin-top: 1px;
+}
+
+.stint-avg, .stint-best {
+  font-family: var(--mono); font-size: 11px;
+}
+
+.stint-avg { color: var(--text-secondary); }
+.stint-best { color: var(--text-primary); }
+
+.stint-deg {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  text-align: right; flex-shrink: 0;
+}
+
+.stint-deg-unit { font-size: 9px; opacity: 0.7; margin-left: 1px; }
+
+.tyre-empty {
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px; color: var(--text-muted); font-size: 13px;
+  border: 1px dashed var(--border); border-radius: var(--radius);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .tyre-layout {
+    grid-template-columns: 1fr;
+  }
+}

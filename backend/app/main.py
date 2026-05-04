@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 from dotenv import load_dotenv
-from app.routers import qualifying
+from app.routers import qualifying, tyres
 
 load_dotenv()
 
@@ -24,6 +24,7 @@ app.add_middleware(
 )
 
 app.include_router(qualifying.router, prefix="/api/qualifying", tags=["Qualifying"])
+app.include_router(tyres.router, prefix="/api/tyres", tags=["Tyres"])
 
 
 @app.get("/health")

@@ -49,3 +49,9 @@ def get_ghost_lap_data(year: int, gp: str, session: str,
     data = _get(key)
     data["cached"] = False
     return data
+
+def get_tyre_degradation(year: int, gp: str) -> dict:
+    key = f"processed/{year}/{_gp_slug(gp)}/race/tyre_degradation.json"
+    data = _get(key)
+    data["cached"] = False
+    return data

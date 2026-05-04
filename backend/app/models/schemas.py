@@ -52,3 +52,40 @@ class SessionInfoResponse(BaseModel):
     gp: str
     sessions: List[str]
     drivers: List[dict]    # [{code, name, team, team_color}]
+
+
+# ── Module B: Tyre Degradation ────────────────────────────────────────────────
+
+class TyreLap(BaseModel):
+    lap_number: Optional[int]
+    lap_time_ms: float
+    lap_time_str: str
+    tyre_life: Optional[int]
+    compound: str
+    is_valid: bool
+
+
+class TyreStint(BaseModel):
+    stint_number: int
+    compound: str
+    compound_color: str
+    laps: List[TyreLap]
+    deg_slope_ms_per_lap: float
+    avg_lap_time_ms: float
+    lap_count: int
+
+
+class TyreDriver(BaseModel):
+    code: str
+    name: str
+    team: str
+    team_color: str
+    stints: List[TyreStint]
+
+
+class TyreDegradationResponse(BaseModel):
+    session_name: str
+    year: int
+    gp: str
+    drivers: List[TyreDriver]
+    cached: bool = False

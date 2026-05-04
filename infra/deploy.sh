@@ -115,12 +115,24 @@ echo "    Waiting for IAM role to propagate..."
 sleep 10
 
 # Step 5: Lambda function
-ENV_VARS="Variables={\
-UPSTASH_REDIS_URL=${UPSTASH_REDIS_URL},\
-FF1_S3_BUCKET=${S3_BUCKET},\
-ALLOWED_ORIGINS=${ALLOWED_ORIGINS},\
-API_ROOT_PATH=/${STAGE}\
-}"
+# Write env vars to a temp JSON file using Python to avoid ALL shell
+# parsing issues with special characters in Redis URLs (colons, slashes,
+# commas, @ signs etc). Python handles the quoting safely.
+rm -f /tmp/lambda-env-*.json
+ENV_JSON_FILE=$(mktemp /tmp/lambda-env-XXXXXX.json)
+python3 -c "
+import json, sys
+data = {
+    'Variables': {
+        'UPSTASH_REDIS_URL': sys.argv[1],
+        'FF1_S3_BUCKET':     sys.argv[2],
+        'ALLOWED_ORIGINS':   sys.argv[3],
+        'API_ROOT_PATH':     sys.argv[4],
+    }
+}
+print(json.dumps(data, indent=2))
+" "${UPSTASH_REDIS_URL}" "${S3_BUCKET}" "${ALLOWED_ORIGINS}" "/${STAGE}" > "${ENV_JSON_FILE}"
+echo "    Env file written: ${ENV_JSON_FILE}"
 
 EXISTING=$(aws lambda get-function --function-name "${LAMBDA_FUNCTION}" \
   --region "${AWS_REGION}" 2>/dev/null || echo "")
@@ -134,7 +146,7 @@ if [[ -z "$EXISTING" ]]; then
     --role "${ROLE_ARN}" \
     --memory-size "${MEMORY_MB}" \
     --timeout "${TIMEOUT_S}" \
-    --environment "${ENV_VARS}" \
+    --environment "file://${ENV_JSON_FILE}" \
     --region "${AWS_REGION}" \
     --query FunctionArn --output text)
 else
@@ -151,13 +163,15 @@ else
     --function-name "${LAMBDA_FUNCTION}" \
     --memory-size "${MEMORY_MB}" \
     --timeout "${TIMEOUT_S}" \
-    --environment "${ENV_VARS}" \
+    --environment "file://${ENV_JSON_FILE}" \
     --region "${AWS_REGION}" > /dev/null
 
   LAMBDA_ARN=$(aws lambda get-function \
     --function-name "${LAMBDA_FUNCTION}" \
     --query Configuration.FunctionArn --output text)
 fi
+
+rm -f "${ENV_JSON_FILE}"
 
 echo "    Lambda ARN: ${LAMBDA_ARN}"
 aws lambda wait function-active --function-name "${LAMBDA_FUNCTION}" --region "${AWS_REGION}"
