@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { useF1Store } from "@/store/useF1Store";
 import { api } from "@/lib/api";
 
-const GPS = ["Bahrain", "Saudi Arabia", "Australia", "Japan", "China",
+const GPS = ["Bahrain", "Saudi Arabia", "Australian", "Japan", "China",
   "Miami", "Emilia Romagna", "Monaco", "Canada", "Spain",
   "Austria", "Britain", "Hungary", "Belgium", "Netherlands",
   "Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
