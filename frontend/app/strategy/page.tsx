@@ -21,7 +21,7 @@ export default function StrategyPage() {
     setStrategyData, setSelectedStrategyDrivers, setLoading, setError,
   } = useF1Store();
 
-  const [gpInput, setGpInput] = useState("Bahrain");
+  const [gpInput, setGpInput] = useState("Australian");
   const ganttRef = useRef<HTMLDivElement>(null);
   const [ganttWidth, setGanttWidth] = useState(800);
 

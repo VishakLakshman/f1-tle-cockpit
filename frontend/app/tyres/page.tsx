@@ -20,7 +20,7 @@ export default function TyresPage() {
     setTyreData, setSelectedTyreDrivers, setLoading, setError,
   } = useF1Store();
 
-  const [gpInput, setGpInput] = useState("Bahrain");
+  const [gpInput, setGpInput] = useState("Australian");
 
   async function loadTyres() {
     setLoading(true);
