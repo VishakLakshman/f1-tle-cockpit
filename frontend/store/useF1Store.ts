@@ -47,9 +47,9 @@ interface F1State {
 
 export const useF1Store = create<F1State>((set) => ({
   year: 2026,
-  gp: "Bahrain",
+  gp: "Australian",
   session: "Q3",
-  driver1: "VER",
+  driver1: "ALB",
   driver2: "LEC",
 
   progressPct: 0,
