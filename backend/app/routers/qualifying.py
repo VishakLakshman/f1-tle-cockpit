@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/session-info", response_model=SessionInfoResponse)
 async def session_info(
-    year: int = Query(..., ge=2025, le=2025, description="Season year (2025 pre-processed)"),
+    year: int = Query(..., ge=2025, le=2026, description="Season year (2025 pre-processed)"),
     gp: str = Query(..., description="Grand Prix name, e.g. 'Monaco'"),
     session: str = Query("Q3", description="Session identifier: Q1, Q2, or Q3"),
 ):
@@ -29,7 +29,7 @@ async def session_info(
 
 @router.get("/ghost", response_model=QualifyingGhostResponse)
 async def ghost_lap(
-    year: int = Query(..., ge=2025, le=2025),
+    year: int = Query(..., ge=2025, le=2026),
     gp: str = Query(..., description="Grand Prix name, e.g. 'Monaco'"),
     session: str = Query("Q3", description="Q1, Q2, or Q3"),
     driver1: str = Query(..., description="Driver code, e.g. 'VER'"),

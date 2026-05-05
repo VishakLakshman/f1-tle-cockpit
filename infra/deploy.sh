@@ -223,6 +223,18 @@ aws lambda add-permission \
   --source-arn "arn:aws:execute-api:${AWS_REGION}:${AWS_ACCOUNT_ID}:${API_ID}/*/*/*" \
   --region "${AWS_REGION}" 2>/dev/null || echo "    Permission already exists."
 
+# Step 7: API Gateway throttling — hard cap at the gateway level (before Lambda runs)
+# burst=3 allows up to 3 concurrent requests in a burst
+# rate=3  allows 3 requests/second sustained (API GW uses requests/second not per minute)
+# The per-minute enforcement is done by the Redis middleware in the app itself
+echo "==> Setting API Gateway throttling"
+aws apigatewayv2 update-stage \
+  --api-id "${API_ID}" \
+  --stage-name "${STAGE}" \
+  --default-route-settings \
+    "ThrottlingBurstLimit=3,ThrottlingRateLimit=0.05" \
+  --region "${AWS_REGION}" > /dev/null && echo "    Throttling set: 0.05 req/s (3/min), burst 3" || echo "    Throttling update skipped"
+
 API_URL="https://${API_ID}.execute-api.${AWS_REGION}.amazonaws.com/${STAGE}"
 
 echo ""

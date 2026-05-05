@@ -13,7 +13,7 @@ export default function Sidebar() {
   const path = usePathname();
   return (
     <aside className="sidebar">
-      <div className="sidebar-logo">F1</div>
+      <div className="sidebar-logo"><img src="/icons/f1-logo.png" alt="" style={{ width: "35px", height: "35px" }}/></div>
       <nav className="sidebar-nav">
         {NAV.map((n) => (
           <Link
@@ -24,7 +24,7 @@ export default function Sidebar() {
           >
             <span className="sidebar-icon">
           {n.icon && (
-            <img src={n.icon} alt="" style={{ width: "16px", height: "16px" }}/>
+            <img src={n.icon} alt="" style={{ width: "25px", height: "25px" }}/>
           )}</span>
           </Link>
         ))}

@@ -32,7 +32,7 @@ CACHE_DIR = os.getenv("FF1_CACHE_DIR", "/tmp/fastf1_cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 fastf1.Cache.enable_cache(CACHE_DIR)
 
-YEAR = 2025
+YEAR = 2026
 
 COMPOUND_COLORS = {
     "SOFT":    "#FF3333",

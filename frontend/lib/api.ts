@@ -138,8 +138,24 @@ export interface RaceStrategyResponse {
 
 // ── API client ────────────────────────────────────────────────────────────────
 
+export class RateLimitError extends Error {
+  retryAfter: number;
+  constructor(retryAfter: number) {
+    super(`Rate limit exceeded. Please wait ${retryAfter}s before trying again.`);
+    this.retryAfter = retryAfter;
+  }
+}
+
 async function apiFetch<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`);
+
+  if (res.status === 429) {
+    const body = await res.json().catch(() => ({}));
+    const retryAfter = body.retry_after_seconds
+      ?? parseInt(res.headers.get("Retry-After") ?? "60", 10);
+    throw new RateLimitError(retryAfter);
+  }
+
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
     throw new Error(err.detail ?? "API error");

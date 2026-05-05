@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/degradation", response_model=TyreDegradationResponse)
 async def tyre_degradation(
-    year: int = Query(..., ge=2025, le=2025),
+    year: int = Query(..., ge=2025, le=2026),
     gp: str = Query(..., description="Grand Prix name, e.g. 'Monaco'"),
 ):
     cache_key = f"tyres:{year}:{gp.replace(' ', '_')}"

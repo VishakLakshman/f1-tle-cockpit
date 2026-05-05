@@ -3,11 +3,13 @@ import { useEffect, useRef } from "react";
 import { useF1Store } from "@/store/useF1Store";
 import { api } from "@/lib/api";
 
-const GPS = ["Bahrain", "Saudi Arabia", "Australian", "Japan", "China",
-  "Miami", "Emilia Romagna", "Monaco", "Canada", "Spain",
-  "Austria", "Britain", "Hungary", "Belgium", "Netherlands",
-  "Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
-  "Brazil", "Las Vegas", "Qatar", "Abu Dhabi"];
+const GPS = ["Australian",
+  //"Bahrain", "Saudi Arabia", "Japan", "China",
+  //"Miami", "Emilia Romagna", "Monaco", "Canada", "Spain",
+  //"Austria", "Britain", "Hungary", "Belgium", "Netherlands",
+  //"Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
+  //"Brazil", "Las Vegas", "Qatar", "Abu Dhabi"
+];
 
 const YEARS = [2025];
 

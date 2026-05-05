@@ -2,17 +2,17 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useF1Store } from "@/store/useF1Store";
-import { api } from "@/lib/api";
+import { api, RateLimitError } from "@/lib/api";
 import StrategyGantt from "@/components/StrategyGantt";
 import PositionChart from "@/components/PositionChart";
 import PitStopTable from "@/components/PitStopTable";
 
 const GPS = [
-  "Bahrain", "Saudi Arabia", "Australian", "Japan", "China",
-  "Miami", "Emilia Romagna", "Monaco", "Canada", "Spain",
-  "Austria", "Britain", "Hungary", "Belgium", "Netherlands",
-  "Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
-  "Brazil", "Las Vegas", "Qatar", "Abu Dhabi",
+  "Australian", "Japanese", "Chinese", "Miami",
+  //"Emilia Romagna", "Monaco", "Canada", "Spain","Bahrain", "Saudi Arabia", 
+  //"Austria", "Britain", "Hungary", "Belgium", "Netherlands",
+  //"Italy", "Azerbaijan", "Singapore", "United States", "Mexico",
+  //"Brazil", "Las Vegas", "Qatar", "Abu Dhabi",
 ];
 
 export default function StrategyPage() {
@@ -45,7 +45,11 @@ export default function StrategyPage() {
       // Default: show all drivers
       setSelectedStrategyDrivers(data.drivers.map((d) => d.code));
     } catch (e: any) {
-      setError(e.message);
+      if (e instanceof RateLimitError) {
+            setError(`⏱ Rate limit reached. Try again in ${e.retryAfter}s.`);
+        } else {
+            setError(e.message);
+        }
     } finally {
       setLoading(false);
     }

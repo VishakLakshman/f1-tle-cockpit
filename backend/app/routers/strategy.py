@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/race", response_model=RaceStrategyResponse)
 async def race_strategy(
-    year: int = Query(..., ge=2025, le=2025),
+    year: int = Query(..., ge=2025, le=2026),
     gp: str = Query(..., description="Grand Prix name, e.g. 'Monaco'"),
 ):
     cache_key = f"strategy:{year}:{gp.replace(' ', '_')}"

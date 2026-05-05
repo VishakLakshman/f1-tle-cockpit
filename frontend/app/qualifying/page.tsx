@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useF1Store } from "@/store/useF1Store";
-import { api } from "@/lib/api";
+import { api, RateLimitError } from "@/lib/api";
 import TrackMap from "@/components/TrackMap";
 import DeltaChart from "@/components/DeltaChart";
 import TelemetryPanel from "@/components/TelemetryPanel";
@@ -21,11 +21,15 @@ export default function QualifyingPage() {
     setLoading(true);
     setError(null);
     try {
-      const data = await api.ghostLap(year, gp, session, d1Input, d2Input);
+      const data = await api.ghostLap(2025, gp, session, d1Input, d2Input);
       setSelection({ driver1: d1Input, driver2: d2Input });
       setGhostData(data);
     } catch (e: any) {
-      setError(e.message);
+        if (e instanceof RateLimitError) {
+            setError(`⏱ Rate limit reached. Try again in ${e.retryAfter}s.`);
+        } else {
+            setError(e.message);
+        }
     } finally {
       setLoading(false);
     }
@@ -43,7 +47,7 @@ export default function QualifyingPage() {
       >
         <h1 className="page-title">Qualifying Ghost</h1>
         <p className="page-subtitle">
-          {ghostData ? ghostData.session_name : `${year} ${gp} — ${session}`}
+          {ghostData ? ghostData.session_name : `2025 - ${gp} - ${session}`}
           {ghostData?.cached && <span className="cached-badge">cached</span>}
         </p>
       </motion.div>
